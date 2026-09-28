@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#fdfbf7" />
+<title>For Val 🌹</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<style>
+:root{ --cream:#fdfbf7;--paper:#fffefa;--sand:#f7f3eb;--line:#ece5d8;--ink:#252321;--muted:#716c67; --rose:#c95f58;--rose-dark:#ae4b45;--rose-pale:#fdf0ee;--green:#20745a;--shadow:0 18px 55px rgba(64,47,39,.08) }
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -12%,#fae9e4 0,transparent 34%),var(--cream);color:var(--ink);font-family:"Plus Jakarta Sans",sans-serif;overflow-x:hidden}
+button,input,textarea{font:inherit}button{cursor:pointer}
+.serif{font-family:"Cormorant Garamond",Georgia,serif}
+header{position:sticky;top:0;z-index:10;background:rgba(253,251,247,.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(236,229,216,.8)}
+.nav{max-width:980px;margin:auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);text-decoration:none;font-size:20px;font-weight:600}
+.brand span:first-child{font-size:22px}
+.switcher{display:flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--sand)}
+.switcher button{border:0;padding:8px 13px;border-radius:999px;background:transparent;color:var(--muted);font-size:12px;font-weight:600}
+.switcher button.active{background:white;color:var(--ink);box-shadow:0 2px 8px #30241b14}
+main{width:min(100% - 32px,760px);min-height:calc(100vh - 124px);margin:auto;display:flex;flex-direction:column;justify-content:center;padding:30px 0 46px}
+.view{width:100%}.hidden{display:none!important}
+.step{animation:enter .35s ease both} @keyframes enter{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.center{text-align:center}.intro{padding:28px 0}
+.envelope{width:88px;height:88px;display:grid;place-items:center;margin:0 auto 22px;border-radius:50%;background:linear-gradient(145deg,#f8e2df,#fff5f1);border:1px solid #efcfca;font-size:38px;box-shadow:inset 0 2px 10px #fff8;animation:float 3s ease-in-out infinite} @keyframes float{50%{transform:translateY(-5px)}}
+.eyebrow{text-transform:uppercase;letter-spacing:.17em;font-size:11px;font-weight:700;color:var(--rose)}
+h1,h2,h3,p{margin-top:0} h1{font-size:clamp(42px,8vw,64px);line-height:.98;margin:12px 0 14px} h2{font-size:clamp(28px,5vw,39px);line-height:1.06;margin:0 0 8px} h3{margin-bottom:8px} .lead{color:var(--muted);font-size:15px;line-height:1.7}
+.card{background:rgba(255,255,255,.82);border:1px solid rgba(236,229,216,.9);border-radius:25px;padding:clamp(20px,4vw,32px);box-shadow:var(--shadow);backdrop-filter:blur(10px)}
+.question-card{text-align:center;margin:20px 0} .quote{font-size:clamp(22px,4vw,29px);font-style:italic;color:#4d4641;margin:14px 0} .divider{height:1px;width:56px;background:#eac8c3;margin:18px auto} .question{font-size:clamp(32px,6vw,45px);line-height:1.05;margin:10px 0 24px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}.actions *{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 18px;border:0;border-radius:14px;background:var(--ink);color:white;font-weight:700;font-size:13px;transition:.2s;box-shadow:0 5px 14px #2d211a17}
+.btn:hover{transform:translateY(-1px);background:#111} .btn:disabled{opacity:.6;cursor:wait;transform:none} .btn.rose{background:var(--rose)}.btn.rose:hover{background:var(--rose-dark)} .btn.soft{background:var(--sand);color:#45403c;border:1px solid var(--line);box-shadow:none} .btn.outline{background:transparent;color:var(--ink);border:1px solid var(--line);box-shadow:none} .btn.danger{background:#fff0ef;color:#a53e38;border:1px solid #f1cfcc;box-shadow:none} .btn.small{padding:9px 12px;font-size:12px;border-radius:11px}
+.feedback{margin-top:17px;padding:15px;border-radius:15px;background:var(--rose-pale);border:1px solid #f0d5d1;text-align:left;font-size:14px;line-height:1.6}
+.stepbar{display:flex;align-items:center;justify-content:space-between;margin:0 2px 12px;color:var(--rose);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase} .back{padding:6px 0;border:0;background:none;color:var(--muted);font-size:12px;font-weight:700}
+.form-card{display:grid;gap:21px} .form-head{margin-bottom:0}.form-head p,.subtle{color:var(--muted);font-size:13px;line-height:1.55;margin:7px 0 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px} .field{min-width:0}.field.full{grid-column:1/-1} label,.field-label{display:block;margin-bottom:7px;font-size:11px;font-weight:700;color:#49443f} .field-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+input,textarea{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:12px;background:#fffefa;color:var(--ink);font-size:13px;outline:none;transition:border .2s,box-shadow .2s} input:focus,textarea:focus{border-color:#d68179;box-shadow:0 0 0 3px #d6817918} textarea{resize:vertical;min-height:74px}
+.chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px} .chip,.rf-btn{border:1px solid var(--line);border-radius:11px;padding:11px 9px;background:#fffefa;color:#4d4742;font-size:12px;font-weight:600;text-align:left;transition:.18s} .chip:hover,.rf-btn:hover{border-color:#e3aaa4} .chip.selected,.rf-btn.selected{background:var(--rose-pale);border-color:#d98982;color:var(--rose-dark)} .chip:last-child{grid-column:1/-1;text-align:center}
+.rf-group{display:grid;gap:8px}.rf-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px} .rf-options.two{grid-template-columns:repeat(2,minmax(0,1fr))} .rf-options.four{grid-template-columns:repeat(2,minmax(0,1fr))} .rf-btn{text-align:center;padding:10px 6px;font-size:11px}
+.range-head{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;font-weight:700} .range-badge{padding:5px 9px;border-radius:999px;background:var(--rose-pale);color:var(--rose-dark);white-space:nowrap} input[type=range]{padding:0;border:0;box-shadow:none;accent-color:var(--rose);margin:11px 0 2px} .range-ends{display:flex;justify-content:space-between;font-size:10px;color:#89817a}
+.summary{display:grid;gap:11px;padding:16px;background:#fffefa;border:1px solid var(--line);border-radius:16px;font-size:12px} .summary-row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #f0ece5;padding-bottom:9px} .summary-row:last-child{border:0;padding-bottom:0} .summary-row span:first-child{color:var(--muted);font-weight:600} .summary-row span:last-child{text-align:right;overflow-wrap:anywhere} .summary-block{padding-top:7px;border-top:1px solid var(--line);line-height:1.7}
+.error{padding:12px 13px;border-radius:12px;background:#fff0ef;color:#a53e38;border:1px solid #f1cfcc;font-size:12px;line-height:1.55}
+.success-icon{width:82px;height:82px;display:grid;place-items:center;margin:0 auto 20px;border-radius:50%;background:#f8e4e1;border:1px solid #efcfca;font-size:37px}
+.success-card{max-width:440px;margin:20px auto;padding:24px;line-height:1.7;color:#514943}
+.admin-wrap{display:grid;gap:16px} .admin-header,.admin-card{padding:19px 21px;border:1px solid var(--line);border-radius:19px;background:#ffffffd9;box-shadow:0 8px 25px #39291b08} .admin-header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap} .admin-header h2{font-size:29px;margin:0} .admin-header p{margin:5px 0 0;color:var(--muted);font-size:11px} .admin-controls{display:flex;gap:7px;flex-wrap:wrap} .statusline{font-size:11px;color:var(--muted)} .statusline.good{color:var(--green)} .statusline.bad{color:#a53e38} .statusline.warn{color:#a5751f}
+.share{display:grid;gap:10px}.share-row{display:flex;gap:8px} .share-row input{font-family:monospace;font-size:11px} .badge{display:inline-flex;padding:5px 9px;border-radius:999px;background:#e9f5ef;color:var(--green);font-size:10px;font-weight:700}
+.response-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border-radius:15px;background:#edf7f1;border:1px solid #d5ebdd;color:#275f4b} .response-top p{margin:3px 0 0;font-size:11px}.response-top strong{font-size:13px}
+.response-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px} .answer{padding:11px;border:1px solid #eee9e0;border-radius:12px;background:#fffefa;min-width:0} .answer small{display:block;color:#8c837b;text-transform:uppercase;letter-spacing:.07em;font-size:9px;font-weight:700;margin-bottom:5px} .answer div{font-size:12px;overflow-wrap:anywhere;white-space:pre-wrap} .answer.wide{grid-column:1/-1}
+.response-actions{display:flex;justify-content:space-between;gap:10px}
+.empty{text-align:center;padding:34px 20px;border:1px dashed var(--line);border-radius:18px;color:var(--muted)}
+.login{max-width:430px;margin:auto}
+.modal{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:16px;background:#17131070;backdrop-filter:blur(5px)} .modal-card{width:min(100%,490px);max-height:90vh;overflow:auto;background:var(--cream);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 25px 70px #0003} .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px} .modal-head h3{font-family:"Cormorant Garamond",serif;font-size:27px;margin:0} .icon-button{border:0;background:transparent;font-size:21px;color:var(--muted)}
+footer{text-align:center;padding:16px 12px;border-top:1px solid #ece5d880;color:#938a82;font-size:10px} .note{font-size:11px;color:var(--muted);line-height:1.6}
+.demo-pass{margin:0 0 18px;padding:13px 14px;border-radius:14px;background:var(--rose-pale);border:1px dashed #e3aaa4;font-size:12px;line-height:1.65;color:#5a5350} .demo-pass strong{font-family:"Plus Jakarta Sans",sans-serif;font-size:16px;letter-spacing:.14em;color:var(--rose-dark);display:inline-block;margin:2px 0} .demo-pass.changed{background:#f7f3eb;border-color:var(--line);color:var(--muted)} .demo-pass.changed strong{color:#4d4641;letter-spacing:.06em;font-size:13px}
+.sync-banner{display:flex;align-items:flex-start;gap:9px;padding:12px 14px;border-radius:14px;background:#fdf6e8;border:1px solid #f0dfbc;color:#7a5c1c;font-size:11.5px;line-height:1.6} .sync-banner strong{color:#5f470f}
+@media(max-width:600px){ .nav{padding:10px 14px}.brand{font-size:17px} .switcher button{padding:8px 10px;font-size:10px} main{width:min(100% - 24px,760px);padding:22px 0 32px} .grid{grid-template-columns:1fr}.field.full{grid-column:auto} .chips{grid-template-columns:repeat(2,minmax(0,1fr))}.chip:last-child{grid-column:1/-1} .admin-header{align-items:flex-start}.admin-controls{width:100%}.admin-controls .btn{flex:1} .response-grid{grid-template-columns:1fr 1fr} .share-row{flex-wrap:wrap}.share-row input{flex:1 1 100%} .response-actions{flex-wrap:wrap}.response-actions .btn{flex:1} .card{border-radius:21px} }
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header>
+<nav class="nav" aria-label="Main navigation">
+<a class="brand" href="#invite" onclick="switchView('invite')"><span>🌹</span><span class="serif">For Val</span></a>
+<div class="switcher"><button id="nav-invite" class="active" onclick="switchView('invite')">Invitation</button><button id="nav-admin" onclick="switchView('admin')">Admin Portal</button></div>
+</nav>
+</header>
+<main>
+<div id="experience-public" class="view">
+<section id="step-intro" class="step center intro">
+<div class="envelope">💌</div>
+<span class="eyebrow">A private invitation</span>
+<h1 class="serif">Hey Val 🌹</h1>
+<p class="lead">I made something special just for you.</p>
+<button class="btn" style="width:min(100%,340px);margin-top:13px" onclick="goToStep(1)">Open it <span>✨</span></button>
+</section>
+<section id="step-question" class="step hidden">
+<div class="card question-card">
+<span class="eyebrow">A quick question</span>
+<p class="quote serif">“So... there's something I've been meaning to ask you.”</p>
+<div class="divider"></div>
+<h2 class="question serif">Would you go on a date with me?</h2>
+<div id="initial-response-state" class="actions" style="max-width:470px;margin:auto">
+<button class="btn rose" onclick="handleInitialChoice(true)">YES <span>❤️</span></button>
+<button class="btn soft" onclick="handleInitialChoice(false)">LET ME THINK <span>🤔</span></button>
+</div>
+<div id="choice-feedback" class="feedback hidden">
+<div id="choice-feedback-text"></div>
+<button class="btn" style="width:100%;margin-top:13px" onclick="goToStep(2)"><span id="choice-feedback-btn-text">Let's plan it →</span></button>
+</div>
+</div>
+</section>
+<section id="step-plan" class="step hidden">
+<div class="stepbar"><button class="back" onclick="goToStep(1)">← Back</button><span>Step 01 / 04</span></div>
+<div class="card form-card">
+<div class="form-head"><h2 class="serif">Okay, let's plan this properly 🗓️</h2><p>Tell me what sounds good to you.</p></div>
+<div class="grid">
+<div class="field"><label for="input-date">Preferred date</label><input type="date" id="input-date" /></div>
+<div class="field"><label for="input-time">Preferred time</label><input type="time" id="input-time" /></div>
+</div>
+<div><div class="field-label">Vibe &amp; date type</div>
+<div class="chips" id="date-type-options">
+<button type="button" class="chip selected" data-type="Dinner 🍷">Dinner 🍷</button>
+<button type="button" class="chip" data-type="Coffee ☕">Coffee ☕</button>
+<button type="button" class="chip" data-type="Movie 🎬">Movie 🎬</button>
+<button type="button" class="chip" data-type="Walk &amp; talk 🌿">Walk &amp; talk 🌿</button>
+<button type="button" class="chip" data-type="Adventure ✨">Adventure ✨</button>
+<button type="button" class="chip" data-type="Something spontaneous 🎲">Spontaneous 🎲</button>
+<button type="button" class="chip" data-type="You choose 💫">You choose 💫</button>
+</div></div>
+<div class="grid">
+<div class="field"><label for="input-location">Preferred location / area</label><input id="input-location" placeholder="Anywhere you'd feel comfortable..." /></div>
+<div class="field"><label for="input-activity">Anything specific you'd like to do?</label><input id="input-activity" placeholder="A cozy rooftop, that new gelato place..." /></div>
+</div>
+<div style="display:flex;justify-content:flex-end"><button class="btn" onclick="goToStep(3)">Next: Comfort &amp; Details →</button></div>
+</div>
+</section>
+<section id="step-preferences" class="step hidden">
+<div class="stepbar"><button class="back" onclick="goToStep(2)">← Back</button><span>Step 02 / 04</span></div>
+<div class="card form-card">
+<div class="form-head"><h2 class="serif">Anything else I should know? 💭</h2><p>Help me plan a date you'll actually enjoy, without any stress.</p></div>
+<div class="field"><label for="input-food">🍽️ Food restrictions <span class="subtle">— anything you don't eat or can't have?</span></label><input id="input-food" placeholder="Vegetarian, allergies, no seafood..." /></div>
+<div class="field"><label for="input-likes">✨ Likes <span class="subtle">— anything you really like on a date?</span></label><input id="input-likes" placeholder="Good lighting, cozy vibe, quiet spaces..." /></div>
+<div class="field"><label for="input-dislikes">🚫 Things to avoid <span class="subtle">— anything you'd rather skip?</span></label><input id="input-dislikes" placeholder="Loud music, crowds, rush..." /></div>
+<div class="field"><label for="input-comfort">🛋️ Comfort <span class="subtle">— what would make this most comfortable?</span></label><input id="input-comfort" placeholder="Meet directly there, early night..." /></div>
+<div class="field"><label for="input-anything-else">📝 Anything else</label><textarea id="input-anything-else" rows="2" placeholder="Tell me any small thought or detail..."></textarea></div>
+<div style="display:flex;justify-content:flex-end"><button class="btn" onclick="goToStep(4)">Next: Rapid Fire ⚡</button></div>
+</div>
+</section>
+<section id="step-rapidfire" class="step hidden">
+<div class="stepbar"><button class="back" onclick="goToStep(3)">← Back</button><span>Step 03 / 04</span></div>
+<div class="card form-card">
+<div class="form-head"><h2 class="serif">Okay, rapid fire ⚡</h2><p>No overthinking — first instinct only.</p></div>
+<div class="rf-group"><div class="field-label">1. Sweet or salty?</div><div class="rf-options" data-key="flavor"><button class="rf-btn selected" data-value="Sweet">Sweet 🍰</button><button class="rf-btn" data-value="Salty">Salty 🥨</button><button class="rf-btn" data-value="Both">Both 🍫</button></div></div>
+<div class="rf-group"><div class="field-label">2. Sunrise or sunset?</div><div class="rf-options two" data-key="sun"><button class="rf-btn" data-value="Sunrise">Sunrise 🌅</button><button class="rf-btn selected" data-value="Sunset">Sunset 🌇</button></div></div>
+<div class="rf-group"><div class="field-label">3. Chill date or adventure?</div><div class="rf-options" data-key="vibe"><button class="rf-btn" data-value="Chill">Chill 🛋️</button><button class="rf-btn" data-value="Adventure">Adventure 🧗</button><button class="rf-btn selected" data-value="Both">Both ✨</button></div></div>
+<div class="rf-group"><div class="field-label">4. Who chooses the food?</div><div class="rf-options four" data-key="foodDecider"><button class="rf-btn" data-value="You">You 🙋‍♀️</button><button class="rf-btn" data-value="Me">Me 🙋‍♂️</button><button class="rf-btn selected" data-value="We decide together">Together 🤝</button><button class="rf-btn" data-value="Dealer's choice">Dealer's choice 🎲</button></div></div>
+<div style="border-top:1px solid var(--line);padding-top:15px">
+<div class="range-head"><label for="input-excitement" style="margin:0">How excited are you?</label><span id="excitement-value-display" class="range-badge">10 / 10 🔥</span></div>
+<input type="range" id="input-excitement" min="1" max="10" value="10" oninput="updateExcitementDisplay(this.value)" />
+<div class="range-ends"><span>1 (Cautiously curious)</span><span>10 (Beyond excited)</span></div>
+</div>
+<div style="display:flex;justify-content:flex-end"><button class="btn" onclick="goToStep(5)">Review Plan 📋</button></div>
+</div>
+</section>
+<section id="step-review" class="step hidden">
+<div class="stepbar"><button class="back" onclick="goToStep(4)">← Back</button><span>Step 04 / 04</span></div>
+<div class="card form-card">
+<div class="form-head"><span class="eyebrow">Final check</span><h2 class="serif" style="margin-top:7px">Your date plan 🌹</h2><p>Here's everything we've put together. Ready to send?</p></div>
+<div id="review-summary-content" class="summary"></div>
+<div id="submit-error-banner" class="error hidden" role="alert"></div>
+<div class="actions"><button class="btn outline" onclick="goToStep(2)">Edit answers</button><button id="btn-submit-response" class="btn rose" onclick="submitInvitationResponse()">Send my answers ❤️</button></div>
+<p class="note" id="submit-note">Your answers are sent securely over HTTPS to the shared invitation database. They leave this device and are readable in the Admin Portal on any device. Success is shown only after the remote database confirms the write.</p>
+</div>
+</section>
+<section id="step-success" class="step hidden center intro">
+<div class="success-icon">💌</div>
+<span class="eyebrow">Invitation response received</span>
+<h2 class="serif" style="font-size:43px;margin:10px 0">It’s official ❤️</h2>
+<div class="card success-card">
+<p><strong>Thanks for answering, Val.</strong></p>
+<p id="success-message">Response submitted successfully.</p>
+<p class="serif" style="font-size:22px;font-weight:700;color:var(--ink);margin:16px 0 0">See you soon, Val. ✨</p>
+</div>
+<button class="back" onclick="goToStep(0)" style="text-decoration:underline">View the invitation again</button>
+</section>
+</div>
+<div id="experience-admin" class="view hidden">
+<section id="admin-login-view" class="login card">
+<div class="eyebrow">🔒 Admin Access</div>
+<h2 class="serif" style="margin-top:8px">Admin Portal</h2>
+<p class="subtle" style="margin-bottom:16px">Enter your admin passphrase to view the responses Val submitted from her own device. Responses live in the shared remote database — readable from any device.</p>
+<div id="demo-passphrase-note" class="demo-pass">
+Demo passphrase: <strong id="demo-passphrase-value">48841979</strong>
+<div id="demo-passphrase-extra">Use this to sign in for the first time. You can change it any time from <em>⚙ Settings</em>.</div>
+</div>
+<form id="admin-login-form" class="form-card" style="gap:13px">
+<div class="field"><label for="admin-login-passphrase">Passphrase</label><input type="password" id="admin-login-passphrase" autocomplete="current-password" placeholder="Enter your admin passphrase" required /></div>
+<div id="admin-login-error" class="error hidden" role="alert"></div>
+<button id="btn-admin-login" class="btn" type="submit">Login</button>
+</form>
+</section>
+<section id="admin-dashboard-view" class="admin-wrap hidden">
+<div class="admin-header">
+<div><h2 class="serif">🌹 Val's Response</h2><p id="admin-status-indicator" class="statusline">Connect to load responses</p></div>
+<div class="admin-controls">
+<button class="btn soft small" onclick="fetchAdminData(true)">↻ Refresh Responses</button>
+<button class="btn soft small" onclick="openSettingsModal()">⚙ Settings</button>
+<button class="btn danger small" onclick="handleAdminLogout()">Log out</button>
+</div>
+</div>
+<div id="local-mode-banner" class="sync-banner hidden"><span aria-hidden="true">⚠️</span><div><strong>Connection issue.</strong> Could not reach the shared database. Check your connection and click Refresh Responses to try again.</div></div>
+<div id="new-response-notice" class="feedback hidden" role="status"><strong>New response available.</strong> The response list has been updated.</div>
+<div class="admin-card share">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><strong class="eyebrow">Share invitation link</strong><span id="share-badge" class="badge">Active</span></div>
+<p class="subtle" style="margin:0">Send this invitation link directly to Val.</p>
+<div class="share-row"><input id="share-link-input" readonly aria-label="Invitation link" /><button class="btn small" onclick="copyShareLink()">Copy link</button><button class="btn rose small" onclick="shareViaMobile()">Share 📲</button></div>
+<div id="share-toast" class="statusline good hidden">✓ Link copied to clipboard.</div>
+</div>
+<div id="admin-empty-state" class="empty hidden"><div style="font-size:30px">⏳</div><h3 class="serif" style="font-size:25px;color:var(--ink)">No response yet</h3><p style="font-size:12px;margin:0">When Val submits the invitation questionnaire, her response will appear here.</p></div>
+<div id="admin-response-list" class="admin-wrap"></div>
+</section>
+</div>
+</main>
+<div id="settings-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+<div class="modal-card">
+<div class="modal-head"><h3 id="settings-title">Admin Settings</h3><button class="icon-button" onclick="closeSettingsModal()" aria-label="Close">×</button></div>
+<p class="subtle" style="margin-bottom:16px">Change your administrative passphrase. It is stored in the shared remote database so it works from every device.</p>
+<form id="password-form" class="form-card" style="gap:12px">
+<div class="field"><label for="pwd-current">Current passphrase</label><input id="pwd-current" type="password" autocomplete="current-password" required /></div>
+<div class="field"><label for="pwd-new">New passphrase</label><input id="pwd-new" type="password" autocomplete="new-password" minlength="8" required /></div>
+<div class="field"><label for="pwd-confirm">Confirm new passphrase</label><input id="pwd-confirm" type="password" autocomplete="new-password" minlength="8" required /></div>
+<div id="settings-msg" class="hidden"></div>
+<div class="actions"><button class="btn outline" type="button" onclick="closeSettingsModal()">Cancel</button><button id="btn-save-pwd" class="btn" type="submit">Save passphrase</button></div>
+</form>
+<div style="border-top:1px solid var(--line);margin:22px 0 16px"></div>
+<p class="subtle" style="margin-bottom:12px">Backend connection — where responses are stored so they are readable from any device.</p>
+<form id="backend-form" class="form-card" style="gap:12px">
+<div class="field"><label for="backend-url">Backend API base URL</label><input id="backend-url" placeholder="https://your-api.example.com" /></div>
+<p class="note" style="margin:0">Leave empty to use this same origin (<code>/api/…</code>) plus the built-in shared cloud database. The public invitation POSTs responses and the admin portal GETs them from the same remote store.</p>
+<div id="backend-msg" class="hidden"></div>
+<div class="actions"><button class="btn outline" type="button" onclick="closeSettingsModal()">Close</button><button id="btn-save-backend" class="btn" type="submit">Save backend</button></div>
+</form>
+</div>
+</div>
+<div id="edit-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="edit-title">
+<div class="modal-card">
+<div class="modal-head"><h3 id="edit-title">Edit response</h3><button class="icon-button" onclick="closeEditModal()" aria-label="Close">×</button></div>
+<form id="edit-form" class="form-card" style="gap:12px">
+<div class="grid">
+<div class="field"><label for="edit-date">Date</label><input id="edit-date" type="date" /></div>
+<div class="field"><label for="edit-time">Time</label><input id="edit-time" type="time" /></div>
+<div class="field full"><label for="edit-type">Date type</label><input id="edit-type" /></div>
+<div class="field full"><label for="edit-location">Location</label><input id="edit-location" /></div>
+<div class="field full"><label for="edit-activity">Specific activity</label><input id="edit-activity" /></div>
+<div class="field full"><label for="edit-food">Food restrictions</label><input id="edit-food" /></div>
+<div class="field full"><label for="edit-likes">Likes</label><input id="edit-likes" /></div>
+<div class="field full"><label for="edit-dislikes">Things to avoid</label><input id="edit-dislikes" /></div>
+<div class="field full"><label for="edit-comfort">Comfort notes</label><input id="edit-comfort" /></div>
+<div class="field full"><label for="edit-anything">Anything else</label><textarea id="edit-anything"></textarea></div>
+</div>
+<div id="edit-error" class="error hidden"></div>
+<div class="actions"><button class="btn outline" type="button" onclick="closeEditModal()">Cancel</button><button class="btn" type="submit">Save changes</button></div>
+</form>
+</div>
+</div>
+<footer>Crafted with care for Val 🌹 <span aria-hidden="true">•</span> Private invitation</footer>
+<script>
+/* DATA ARCHITECTURE
+   PHONE -> HTTPS POST -> REMOTE API -> PERSISTENT STORE -> ADMIN PORTAL ON PC VIA HTTPS GET
+   Primary: dedicated API at API_BASE (/api/public/... and /api/admin/...)
+   Default: shared cloud endpoints (fixed namespace, no setup, readable from any device)
+   Success UI appears only after remote confirmation. Failures never claim success.
+*/
+const DEFAULT_API_BASE = "";
+const INVITATION_ID = "for-val";
+const POLL_INTERVAL_MS = 20000;
+const REQUEST_TIMEOUT = 12000;
+const PANTRY_ID = "f4c3b2a1-7e8d-4f6a-9b3c-2d1e0f5a6b7c";
+const PANTRY_RESP_BASKET = "for-val-responses-v1";
+const PANTRY_CONF_BASKET = "for-val-admin-v1";
+const CRUD_KEY = "b8f3c2a14d5e4f6a9b7c1d2e3f4a5b6c";
+const CRUD_BASE = "https://crudcrud.com/api/" + CRUD_KEY;
+const RESTFUL_BASE = "https://api.restful-api.dev/objects";
+let API_BASE = DEFAULT_API_BASE;
+let isAdminAuthed = false;
+let passphraseChangedKnown = false;
+let editTarget = null;
+let draftCache = null;
+const $ = (id) => document.getElementById(id);
+function escapeHTML(value){ return String(value ?? "").replace(/[&<>"']/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function safeText(value,fallback){ if(fallback===undefined) fallback="—"; return (value===undefined||value===null||String(value).trim()==="")?fallback:String(value); }
+function triggerConfetti(){ if(typeof confetti==="function"){ confetti({particleCount:55,spread:58,origin:{y:.72},colors:["#de8e87","#ba534b","#dfb78c","#2d2b2a"]}); } }
+async function sha256(text){
+  if(window.crypto && window.crypto.subtle){
+    try{ const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(text)); return Array.from(new Uint8Array(buf)).map((b)=>b.toString(16).padStart(2,"0")).join(""); }catch(_){}
+  }
+  let h=2166136261; for(let i=0;i<text.length;i++){ h^=text.charCodeAt(i); h=Math.imul(h,16777619); } return "fnv:"+(h>>>0).toString(16);
+}
+function generateResponseId(){
+  try{ if(window.crypto && window.crypto.randomUUID) return "resp-"+window.crypto.randomUUID(); }catch(_){}
+  return "resp-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,10);
+}
+class ApiError extends Error{ constructor(message,code,status){ super(message); this.name="ApiError"; this.code=code||"http"; this.status=status||0; } }
+let backendState="unknown";
+function isBackendUnavailable(err){ if(!err) return false; if(err.code==="network") return true; return err.status===404||err.status===405||err.status===501||err.status===0; }
+async function apiRequest(path,options,timeoutMs){
+  options=options||{}; timeoutMs=timeoutMs||REQUEST_TIMEOUT;
+  const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),timeoutMs);
+  const headers=new Headers(options.headers||{});
+  if(options.body && !headers.has("Content-Type")) headers.set("Content-Type","application/json");
+  headers.set("Accept","application/json");
+  let response;
+  try{ response=await fetch(API_BASE+path,{...options,headers,credentials:"include",cache:"no-store",signal:controller.signal}); }
+  catch(e){ clearTimeout(timer); backendState="offline"; throw new ApiError("Could not reach the invitation server. Check your connection and try again.","network",0); }
+  clearTimeout(timer);
+  const text=await response.text(); let data=null;
+  if(text){ try{ data=JSON.parse(text);}catch{ data={message:text}; } }
+  if(!response.ok){
+    if(response.status>=500||response.status===404||response.status===405||response.status===501) backendState="offline"; else backendState="online";
+    const message=data&&(data.message||data.error);
+    if(response.status===401||response.status===403) throw new ApiError(message||"Your admin session is not authorised. Please sign in again.","auth",response.status);
+    throw new ApiError(message||("The server could not complete the request (HTTP "+response.status+")."),"http",response.status);
+  }
+  backendState="online"; return data;
+}
+async function cloudFetch(url,options,timeoutMs){
+  options=options||{}; timeoutMs=timeoutMs||12000;
+  const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),timeoutMs);
+  const headers=new Headers(options.headers||{});
+  if(options.body && !headers.has("Content-Type")) headers.set("Content-Type","application/json");
+  headers.set("Accept","application/json");
+  let response;
+  try{ response=await fetch(url,{...options,headers,signal:controller.signal}); }
+  catch(e){ clearTimeout(timer); throw new ApiError("Could not reach the shared database. Check your connection and try again.","network",0); }
+  clearTimeout(timer);
+  const text=await response.text(); let data=null;
+  if(text){ try{ data=JSON.parse(text);}catch{ data={message:text}; } }
+  if(!response.ok){
+    const message=data&&(data.message||data.error);
+    if(response.status===401||response.status===403) throw new ApiError(message||"Not authorised.","auth",response.status);
+    throw new ApiError(message||("Request failed ("+response.status+")"),"http",response.status);
+  }
+  return data;
+}
+function pantryUrl(basket){ return "https://getpantry.cloud/apiv1/pantry/"+PANTRY_ID+"/basket/"+encodeURIComponent(basket); }
+async function pantryGetBasket(basket){
+  try{ return await cloudFetch(pantryUrl(basket),{method:"GET"},10000); }
+  catch(err){ if(err.status===404) return null; throw err; }
+}
+async function pantryWriteBasket(basket,obj,exists){
+  if(exists){
+    try{ return await cloudFetch(pantryUrl(basket),{method:"PUT",body:JSON.stringify(obj)},12000); }
+    catch(err){ if(err.status===404) return await cloudFetch(pantryUrl(basket),{method:"POST",body:JSON.stringify(obj)},12000); throw err; }
+  } else {
+    try{ return await cloudFetch(pantryUrl(basket),{method:"POST",body:JSON.stringify(obj)},12000); }
+    catch(err){
+      if(err.status===400||err.status===409||err.status===404){
+        try{ return await cloudFetch(pantryUrl(basket),{method:"PUT",body:JSON.stringify(obj)},12000); }catch(_){ throw err; }
+      }
+      throw err;
+    }
+  }
+}
+async function pantryAppendResponse(payload){
+  const current=await pantryGetBasket(PANTRY_RESP_BASKET);
+  const exists=!!current; let list=[];
+  if(current){ if(Array.isArray(current)) list=current; else if(Array.isArray(current.responses)) list=current.responses; else list=[]; }
+  const rid=payload.response_id;
+  if(list.some((r)=>((r.response_id||r.id||r.responseId)===rid))) return {backend:"pantry",id:rid};
+  list.push(payload);
+  const toWrite={invitation_id:INVITATION_ID,responses:list,updated_at:new Date().toISOString()};
+  await pantryWriteBasket(PANTRY_RESP_BASKET,toWrite,exists);
+  const verify=await pantryGetBasket(PANTRY_RESP_BASKET);
+  const vlist=(verify&&verify.responses)?verify.responses:[];
+  if(vlist.some((r)=>((r.response_id||r.id)===rid))) return {backend:"pantry",id:rid};
+  throw new ApiError("Cloud write not confirmed.","unconfirmed",0);
+}
+async function pantryListResponses(){
+  const data=await pantryGetBasket(PANTRY_RESP_BASKET);
+  if(!data) return [];
+  let list=[]; if(Array.isArray(data)) list=data; else if(Array.isArray(data.responses)) list=data.responses; else return [];
+  return list.map((r)=>({...r,_backend:"pantry",_recordId:r.response_id||r.id}));
+}
+async function pantryUpdateResponse(responseId,fields){
+  const current=await pantryGetBasket(PANTRY_RESP_BASKET);
+  if(!current||!Array.isArray(current.responses)) throw new ApiError("Response not found.","http",404);
+  let found=false;
+  current.responses=current.responses.map((r)=>{
+    if((r.response_id||r.id)===responseId){
+      found=true;
+      const merged={...r,...fields,updated_at:new Date().toISOString()};
+      if(merged.answers&&typeof merged.answers==="object"){ Object.keys(fields).forEach((k)=>{ if(k in merged.answers) merged.answers[k]=fields[k]; }); }
+      return merged;
+    }
+    return r;
+  });
+  if(!found) throw new ApiError("Response not found.","http",404);
+  current.updated_at=new Date().toISOString();
+  await pantryWriteBasket(PANTRY_RESP_BASKET,current,true);
+}
+async function pantryDeleteResponse(responseId){
+  const current=await pantryGetBasket(PANTRY_RESP_BASKET);
+  if(!current||!Array.isArray(current.responses)) return;
+  current.responses=current.responses.filter((r)=>((r.response_id||r.id)!==responseId));
+  current.updated_at=new Date().toISOString();
+  await pantryWriteBasket(PANTRY_RESP_BASKET,current,true);
+}
+async function pantryGetConfig(){ const d=await pantryGetBasket(PANTRY_CONF_BASKET); if(!d) return null; return d; }
+async function pantryPutConfig(obj){ const ex=!!(await pantryGetBasket(PANTRY_CONF_BASKET)); await pantryWriteBasket(PANTRY_CONF_BASKET,obj,ex); }
+async function restfulPostResponse(payload){
+  const body={name:"for-val-response-"+payload.response_id,data:payload};
+  const created=await cloudFetch(RESTFUL_BASE,{method:"POST",body:JSON.stringify(body)},12000);
+  if(!created||!created.id) throw new ApiError("Cloud write not confirmed.","unconfirmed",0);
+  return {backend:"restful",id:created.id};
+}
+async function restfulListResponses(){
+  const all=await cloudFetch(RESTFUL_BASE,{method:"GET"},15000);
+  if(!Array.isArray(all)) return [];
+  const filtered=all.filter((o)=>{
+    if(!o) return false;
+    if(o.data&&o.data.invitation_id===INVITATION_ID) return true;
+    if(typeof o.name==="string"&&o.name.indexOf("for-val-response-")===0) return true;
+    return false;
+  });
+  return filtered.map((o)=>{
+    const d=(o.data&&typeof o.data==="object")?o.data:{};
+    return {...d,_backend:"restful",_recordId:o.id,invitation_id:d.invitation_id||INVITATION_ID,response_id:d.response_id||o.id};
+  });
+}
+async function restfulUpdateResponse(recordId,fields){
+  const single=await cloudFetch(RESTFUL_BASE+"/"+encodeURIComponent(recordId),{method:"GET"},10000);
+  const existing=(single&&single.data)||{};
+  const merged={...existing,...fields,updated_at:new Date().toISOString()};
+  if(merged.answers&&typeof merged.answers==="object"){ Object.keys(fields).forEach((k)=>{ if(k in merged.answers) merged.answers[k]=fields[k]; }); }
+  const body={name:(single&&single.name)||("for-val-response-"+(merged.response_id||recordId)),data:merged};
+  await cloudFetch(RESTFUL_BASE+"/"+encodeURIComponent(recordId),{method:"PUT",body:JSON.stringify(body)},12000);
+}
+async function restfulDeleteResponse(recordId){ await cloudFetch(RESTFUL_BASE+"/"+encodeURIComponent(recordId),{method:"DELETE"},10000); }
+async function restfulGetConfig(){
+  const all=await cloudFetch(RESTFUL_BASE,{method:"GET"},15000);
+  if(!Array.isArray(all)) return null;
+  const found=all.find((o)=>o&&o.name==="for-val-admin-config-v1"&&o.data&&o.data.invitation_id===INVITATION_ID);
+  if(!found) return null;
+  return {...found.data,_recordId:found.id};
+}
+async function restfulPutConfig(obj){
+  const existing=await restfulGetConfig().catch(()=>null);
+  if(existing&&existing._recordId){
+    await cloudFetch(RESTFUL_BASE+"/"+encodeURIComponent(existing._recordId),{method:"PUT",body:JSON.stringify({name:"for-val-admin-config-v1",data:obj})},12000);
+  } else {
+    await cloudFetch(RESTFUL_BASE,{method:"POST",body:JSON.stringify({name:"for-val-admin-config-v1",data:obj})},12000);
+  }
+}
+async function crudPostResponse(payload){
+  const created=await cloudFetch(CRUD_BASE+"/responses",{method:"POST",body:JSON.stringify(payload)},12000);
+  if(!created||!created._id) throw new ApiError("Cloud write not confirmed.","unconfirmed",0);
+  return {backend:"crud",id:created._id};
+}
+async function crudListResponses(){
+  try{
+    const list=await cloudFetch(CRUD_BASE+"/responses",{method:"GET"},12000);
+    if(!Array.isArray(list)) return [];
+    return list.filter((r)=>!r.invitation_id||r.invitation_id===INVITATION_ID).map((r)=>({...r,_backend:"crud",_recordId:r._id}));
+  }catch(err){ if(err.status===404) return []; throw err; }
+}
+async function crudUpdateResponse(recordId,original,fields){
+  const merged={...original,...fields,updated_at:new Date().toISOString()};
+  delete merged._id; delete merged._backend; delete merged._recordId;
+  if(merged.answers&&typeof merged.answers==="object"){ Object.keys(fields).forEach((k)=>{ if(k in merged.answers) merged.answers[k]=fields[k]; }); }
+  await cloudFetch(CRUD_BASE+"/responses/"+encodeURIComponent(recordId),{method:"PUT",body:JSON.stringify(merged)},12000);
+}
+async function crudDeleteResponse(recordId){ await cloudFetch(CRUD_BASE+"/responses/"+encodeURIComponent(recordId),{method:"DELETE"},10000); }
+async function crudGetConfig(){
+  try{
+    const list=await cloudFetch(CRUD_BASE+"/adminconfig",{method:"GET"},10000);
+    if(!Array.isArray(list)||!list.length) return null;
+    return {...list[0],_recordId:list[0]._id};
+  }catch(err){ if(err.status===404) return null; throw err; }
+}
+async function crudPutConfig(obj){
+  const existing=await crudGetConfig().catch(()=>null);
+  if(existing&&existing._recordId){ await cloudFetch(CRUD_BASE+"/adminconfig/"+encodeURIComponent(existing._recordId),{method:"PUT",body:JSON.stringify(obj)},12000); }
+  else { await cloudFetch(CRUD_BASE+"/adminconfig",{method:"POST",body:JSON.stringify(obj)},12000); }
+}
+async function cloudSubmitResponse(payload){
+  let lastErr=null;
+  try{
+    const ok=await crudPostResponse(payload);
+    try{ await restfulPostResponse(payload); }catch(_){}
+    try{ await pantryAppendResponse(payload); }catch(_){}
+    return ok;
+  }catch(e){ lastErr=e; }
+  try{
+    const ok=await restfulPostResponse(payload);
+    try{ await pantryAppendResponse(payload); }catch(_){}
+    return ok;
+  }catch(e){ lastErr=e; }
+  try{ const ok=await pantryAppendResponse(payload); return ok; }
+  catch(e){ lastErr=e; }
+  throw lastErr||new ApiError("Could not send your response. Please try again.","network",0);
+}
+async function cloudListResponses(){
+  const results=await Promise.allSettled([crudListResponses(),restfulListResponses(),pantryListResponses()]);
+  let merged=[]; let anyOk=false;
+  results.forEach((r)=>{ if(r.status==="fulfilled"){ anyOk=true; if(Array.isArray(r.value)) merged=merged.concat(r.value); } });
+  if(!anyOk){ const rej=results.find((r)=>r.status==="rejected"); throw rej?rej.reason:new ApiError("Could not load responses from the shared database.","network",0); }
+  const seen=new Map();
+  merged.forEach((item)=>{
+    const key=item.response_id||item.responseId||item.id||item._recordId||JSON.stringify(item);
+    if(!seen.has(key)) seen.set(key,item);
+    else{
+      const ex=seen.get(key);
+      const aT=new Date(item.updated_at||item.submitted_at||item.createdAt||item.created_at||0).getTime();
+      const bT=new Date(ex.updated_at||ex.submitted_at||ex.createdAt||ex.created_at||0).getTime();
+      if(aT>bT) seen.set(key,item);
+    }
+  });
+  const out=[...seen.values()];
+  out.sort((a,b)=>new Date(b.submitted_at||b.created_at||b.createdAt||0)-new Date(a.submitted_at||a.created_at||a.createdAt||0));
+  return out;
+}
+async function cloudGetConfig(){
+  try{ const pc=await pantryGetConfig(); if(pc&&pc.pwdHash) return {pwdHash:pc.pwdHash,backend:"pantry"}; }catch(_){}
+  try{ const cc=await crudGetConfig(); if(cc&&cc.pwdHash) return {pwdHash:cc.pwdHash,backend:"crud"}; }catch(_){}
+  try{ const rc=await restfulGetConfig(); if(rc&&rc.pwdHash) return {pwdHash:rc.pwdHash,backend:"restful"}; }catch(_){}
+  return null;
+}
+async function cloudPutConfig(pwdHash){
+  const obj={invitation_id:INVITATION_ID,pwdHash,updated_at:new Date().toISOString()};
+  let ok=false; let lastErr=null;
+  try{ await pantryPutConfig(obj); ok=true; }catch(e){ lastErr=e; }
+  try{ await crudPutConfig(obj); ok=true; }catch(e){ if(!ok) lastErr=e; }
+  try{ await restfulPutConfig(obj); ok=true; }catch(e){ if(!ok) lastErr=e; }
+  if(!ok) throw lastErr||new ApiError("Could not save passphrase.","network",0);
+}
+async function cloudUpdateResponse(record,fields){
+  const backend=record._backend;
+  if(backend==="pantry") await pantryUpdateResponse(record.response_id||record.id,fields);
+  else if(backend==="restful") await restfulUpdateResponse(record._recordId,fields);
+  else if(backend==="crud") await crudUpdateResponse(record._recordId,record,fields);
+  else throw new ApiError("Unknown storage origin.","http",400);
+  const rid=record.response_id||record.id;
+  if(rid){
+    try{
+      const all=await cloudListResponses();
+      const dups=all.filter((r)=>((r.response_id||r.id)===rid&&r._backend!==backend));
+      for(const d of dups){
+        try{
+          if(d._backend==="pantry") await pantryUpdateResponse(rid,fields);
+          else if(d._backend==="restful") await restfulUpdateResponse(d._recordId,fields);
+          else if(d._backend==="crud") await crudUpdateResponse(d._recordId,d,fields);
+        }catch(_){}
+      }
+    }catch(_){}
+  }
+}
+async function cloudDeleteResponse(record){
+  const backend=record._backend;
+  const rid=record.response_id||record.id;
+  if(backend==="pantry") await pantryDeleteResponse(rid);
+  else if(backend==="restful") await restfulDeleteResponse(record._recordId);
+  else if(backend==="crud") await crudDeleteResponse(record._recordId);
+  else throw new ApiError("Unknown storage origin.","http",400);
+  if(rid){
+    try{
+      const all=await cloudListResponses();
+      const dups=all.filter((r)=>((r.response_id||r.id)===rid));
+      for(const d of dups){
+        try{
+          if(d._backend==="pantry") await pantryDeleteResponse(rid);
+          else if(d._backend==="restful") await restfulDeleteResponse(d._recordId);
+          else if(d._backend==="crud") await crudDeleteResponse(d._recordId);
+        }catch(_){}
+      }
+    }catch(_){}
+  }
+}
+const state={
+  currentStep:0,
+  selectedDateType:"Dinner 🍷",
+  submitting:false,
+  answers:{accepted:true,preferred_date:"",preferred_time:"",date_type:"Dinner 🍷",preferred_location:"",activity_preference:"",food_restrictions:"",likes:"",dislikes:"",comfort_preferences:"",anything_else:"",rapid_fire_answers:{flavor:"Sweet",sun:"Sunset",vibe:"Both",foodDecider:"We decide together"},excitement_rating:10},
+  responses:[],lastLatestId:null,editResponseId:null,pollTimer:null,syncSource:"unknown"
+};
+const stepIds=["step-intro","step-question","step-plan","step-preferences","step-rapidfire","step-review","step-success"];
+function goToStep(index){
+  captureForm();
+  stepIds.forEach((id,i)=>$(id).classList.toggle("hidden",i!==index));
+  state.currentStep=index;
+  if(index===5) renderReviewSummary();
+  if(index!==5) $("submit-error-banner").classList.add("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function captureForm(){
+  const fields={preferred_date:"input-date",preferred_time:"input-time",preferred_location:"input-location",activity_preference:"input-activity",food_restrictions:"input-food",likes:"input-likes",dislikes:"input-dislikes",comfort_preferences:"input-comfort",anything_else:"input-anything-else"};
+  Object.entries(fields).forEach(([key,id])=>{ const el=$(id); if(el) state.answers[key]=el.value.trim(); });
+  if($("input-excitement")) state.answers.excitement_rating=Number($("input-excitement").value);
+  state.answers.date_type=state.selectedDateType;
+  saveDraft();
+}
+function saveDraft(){ try{ draftCache=JSON.parse(JSON.stringify(state.answers)); }catch(_){} }
+function restoreDraft(){
+  if(!draftCache||typeof draftCache!=="object") return;
+  const map={preferred_date:"input-date",preferred_time:"input-time",preferred_location:"input-location",activity_preference:"input-activity",food_restrictions:"input-food",likes:"input-likes",dislikes:"input-dislikes",comfort_preferences:"input-comfort",anything_else:"input-anything-else"};
+  Object.entries(map).forEach(([key,id])=>{ if($(id)&&draftCache[key]) $(id).value=draftCache[key]; });
+  if(draftCache.rapid_fire_answers){
+    document.querySelectorAll(".rf-options").forEach((group)=>{
+      const v=draftCache.rapid_fire_answers[group.dataset.key]; if(!v) return;
+      group.querySelectorAll(".rf-btn").forEach((btn)=>btn.classList.toggle("selected",btn.dataset.value===v));
+    });
+  }
+  if(draftCache.date_type){
+    state.selectedDateType=draftCache.date_type;
+    document.querySelectorAll(".chip").forEach((c)=>c.classList.toggle("selected",c.dataset.type===draftCache.date_type));
+  }
+  if(draftCache.excitement_rating&&$("input-excitement")){ $("input-excitement").value=draftCache.excitement_rating; updateExcitementDisplay(draftCache.excitement_rating); }
+  Object.assign(state.answers,draftCache);
+}
+function handleInitialChoice(accepted){
+  state.answers.accepted=accepted;
+  $("choice-feedback").classList.remove("hidden");
+  $("choice-feedback-text").innerHTML=accepted?"<strong>Okay... it's a date!</strong> Let's pick a time and vibe that sounds perfect to you.":"<strong>Fair enough.</strong> Take all the time you need. We can still note what sounds fun, with no pressure.";
+  $("choice-feedback-btn-text").textContent=accepted?"Let's plan it →":"Okay, let's keep planning →";
+  if(accepted) triggerConfetti();
+}
+document.querySelectorAll(".chip").forEach((button)=>button.addEventListener("click",()=>{
+  document.querySelectorAll(".chip").forEach((item)=>item.classList.remove("selected"));
+  button.classList.add("selected");
+  state.selectedDateType=button.dataset.type;
+  state.answers.date_type=state.selectedDateType;
+  saveDraft();
+}));
+document.querySelectorAll(".rf-options").forEach((group)=>group.addEventListener("click",(event)=>{
+  const button=event.target.closest(".rf-btn"); if(!button) return;
+  group.querySelectorAll(".rf-btn").forEach((item)=>item.classList.remove("selected"));
+  button.classList.add("selected");
+  state.answers.rapid_fire_answers[group.dataset.key]=button.dataset.value;
+  saveDraft();
+}));
+function updateExcitementDisplay(value){
+  const n=Number(value);
+  const emoji=n>=9?"🔥":n>=7?"🥰":n>=4?"😊":"✨";
+  $("excitement-value-display").textContent=n+" / 10 "+emoji;
+  state.answers.excitement_rating=n; saveDraft();
+}
+function renderReviewSummary(){
+  captureForm();
+  const a=state.answers, rf=a.rapid_fire_answers;
+  const rows=[["Response",a.accepted?"YES ❤️":"Let me think 🤔"],["Date",a.preferred_date||"Not specified"],["Time",a.preferred_time||"Not specified"],["Vibe",a.date_type],["Location",a.preferred_location||"Anywhere comfortable"],["Activity",a.activity_preference||"Not specified"],["Food restrictions",a.food_restrictions||"None mentioned"],["Likes",a.likes||"Not specified"],["Things to avoid",a.dislikes||"Not specified"],["Comfort",a.comfort_preferences||"Not specified"],["Anything else",a.anything_else||"Not specified"]];
+  $("review-summary-content").innerHTML=rows.map(([k,v])=>'<div class="summary-row"><span>'+escapeHTML(k)+'</span><span>'+escapeHTML(v)+'</span></div>').join("")+'<div class="summary-block"><strong>Rapid fire:</strong> Flavor: '+escapeHTML(rf.flavor||"—")+' · Sun: '+escapeHTML(rf.sun||"—")+' · Mood: '+escapeHTML(rf.vibe||"—")+' · Food decider: '+escapeHTML(rf.foodDecider||"—")+'</div>'+'<div class="summary-row"><span>Excitement</span><span>'+Number(a.excitement_rating)+' / 10 🔥</span></div>';
+}
+function buildResponsePayload(){
+  captureForm();
+  const a=state.answers;
+  const rid=generateResponseId();
+  const now=new Date().toISOString();
+  const flat={invitation_id:INVITATION_ID,response_id:rid,respondent_id:"val",submitted_at:now,updated_at:now,status:"submitted",accepted:a.accepted,preferred_date:a.preferred_date,preferred_time:a.preferred_time,date_type:a.date_type,preferred_location:a.preferred_location,activity_preference:a.activity_preference,food_restrictions:a.food_restrictions,likes:a.likes,dislikes:a.dislikes,comfort_preferences:a.comfort_preferences,anything_else:a.anything_else,rapid_fire_answers:{...a.rapid_fire_answers},excitement_rating:a.excitement_rating};
+  flat.answers={accepted:a.accepted,preferred_date:a.preferred_date,preferred_time:a.preferred_time,date_type:a.date_type,preferred_location:a.preferred_location,activity_preference:a.activity_preference,food_restrictions:a.food_restrictions,likes:a.likes,dislikes:a.dislikes,comfort_preferences:a.comfort_preferences,anything_else:a.anything_else,rapid_fire_answers:{...a.rapid_fire_answers},excitement_rating:a.excitement_rating};
+  return flat;
+}
+function showSuccess(mode){
+  const p=$("success-message");
+  if(mode==="server") p.textContent="Response submitted successfully. The server confirmed your answers were saved to the shared invitation database. They are waiting for the administrator on any device.";
+  else p.textContent="Response submitted successfully. Your answers were saved to the shared database and are available in the Admin Portal on any device.";
+  goToStep(6);
+}
+async function submitInvitationResponse(){
+  if(state.submitting) return;
+  const button=$("btn-submit-response");
+  const error=$("submit-error-banner");
+  error.classList.add("hidden");
+  const payload=buildResponsePayload();
+  state.submitting=true; button.disabled=true; button.textContent="Sending securely…";
+  try{
+    try{
+      const result=await apiRequest("/api/public/invitations/"+encodeURIComponent(INVITATION_ID)+"/responses",{method:"POST",body:JSON.stringify(payload)});
+      const confirmed=result&&(result.success===true||result.id||result.response_id||result.response||result.saved===true);
+      if(!confirmed) throw new ApiError("The server did not confirm that your answers were saved. Please try again.","unconfirmed",0);
+      draftCache=null;
+      showSuccess("server"); triggerConfetti(); return;
+    }catch(customErr){
+      if(!isBackendUnavailable(customErr)) throw customErr;
+    }
+    try{ await cloudSubmitResponse(payload); }
+    catch(_){ throw new ApiError("Could not send your response. Please try again.","network",0); }
+    draftCache=null;
+    showSuccess("cloud"); triggerConfetti();
+  }catch(err){
+    let msg=(err&&err.message)?err.message:"Could not send your response. Please try again.";
+    if(msg.indexOf("Could not send your response. Please try again.")===-1){
+      msg="Could not send your response. Please try again. "+msg;
+    }
+    error.textContent=msg;
+    error.classList.remove("hidden");
+    error.scrollIntoView({behavior:"smooth",block:"center"});
+  }finally{
+    state.submitting=false; button.disabled=false; button.textContent="Send my answers ❤️";
+  }
+}
+function getPublicDemoPassphrase(){ const el=$("demo-passphrase-value"); return el?el.textContent.trim():""; }
+function refreshDemoPassphraseNote(){
+  const box=$("demo-passphrase-note"); const extra=$("demo-passphrase-extra");
+  if(!box||!extra) return;
+  if(passphraseChangedKnown){
+    box.classList.add("changed");
+    extra.innerHTML="This is the <strong>original demo passphrase</strong>. You have changed the admin passphrase, so it is <strong>no longer the active password</strong> — sign in with your new passphrase.";
+  } else {
+    box.classList.remove("changed");
+    extra.innerHTML="Use this to sign in for the first time. You can change it any time from <em>⚙ Settings</em>. The new passphrase is stored in the shared remote database and works from every device.";
+  }
+}
+async function refreshDemoNoteFromRemote(){
+  try{ const cfg=await cloudGetConfig(); passphraseChangedKnown=!!(cfg&&cfg.pwdHash); }catch(_){}
+  refreshDemoPassphraseNote();
+}
+async function verifyCloudPassphrase(input){
+  if(!input) return false;
+  const hash=await sha256(input);
+  let remote=null;
+  try{ remote=await cloudGetConfig(); }catch(_){ remote=null; }
+  if(remote&&remote.pwdHash){ passphraseChangedKnown=true; refreshDemoPassphraseNote(); return hash===remote.pwdHash; }
+  const demo=getPublicDemoPassphrase();
+  if(input===demo){ passphraseChangedKnown=false; return true; }
+  return false;
+}
+async function attemptAdminLogin(passphrase){
+  try{
+    await apiRequest("/api/admin/auth/login",{method:"POST",body:JSON.stringify({username:"admin",passphrase:passphrase,password:passphrase})});
+    return "server";
+  }catch(err){
+    if(!isBackendUnavailable(err)) throw err;
+    const ok=await verifyCloudPassphrase(passphrase);
+    if(!ok) throw new ApiError("That passphrase is not correct. If you have not changed it yet, use the demo passphrase shown above.","auth",401);
+    return "cloud";
+  }
+}
+function showAdminLogin(){
+  $("admin-dashboard-view").classList.add("hidden");
+  $("admin-login-view").classList.remove("hidden");
+  refreshDemoPassphraseNote();
+  refreshDemoNoteFromRemote();
+}
+function showAdminDashboard(){
+  $("admin-login-view").classList.add("hidden");
+  $("admin-dashboard-view").classList.remove("hidden");
+  updateShareLink();
+}
+async function initAdminView(){
+  try{
+    await apiRequest("/api/admin/responses?invitation_id="+encodeURIComponent(INVITATION_ID),{},8000);
+    isAdminAuthed=true;
+    showAdminDashboard();
+    await fetchAdminData();
+    startPolling();
+    return;
+  }catch(err){
+    if(!isBackendUnavailable(err)){ stopPolling(); isAdminAuthed=false; showAdminLogin(); return; }
+    if(isAdminAuthed){ showAdminDashboard(); await fetchAdminData(); return; }
+    stopPolling(); showAdminLogin();
+  }
+}
+$("admin-login-form").addEventListener("submit",async(event)=>{
+  event.preventDefault();
+  const button=$("btn-admin-login"); const error=$("admin-login-error");
+  const passphrase=$("admin-login-passphrase").value;
+  error.classList.add("hidden"); button.disabled=true; button.textContent="Signing in…";
+  try{
+    const mode=await attemptAdminLogin(passphrase);
+    state.syncSource=mode;
+    $("admin-login-passphrase").value="";
+    isAdminAuthed=true;
+    showAdminDashboard();
+    await fetchAdminData(true);
+    startPolling();
+  }catch(err){
+    error.textContent=err.message||"Sign in failed.";
+    error.classList.remove("hidden");
+  }finally{ button.disabled=false; button.textContent="Login"; }
+});
+async function handleAdminLogout(){
+  stopPolling();
+  try{ await apiRequest("/api/admin/auth/logout",{method:"POST",body:"{}"},6000); }catch(_){}
+  isAdminAuthed=false; state.syncSource="unknown"; state.responses=[]; state.lastLatestId=null; editTarget=null;
+  $("admin-login-passphrase").value="";
+  showAdminLogin();
+}
+function normalizeResponseList(data){
+  if(Array.isArray(data)) return data;
+  if(data&&Array.isArray(data.responses)) return data.responses;
+  if(data&&data.response) return [data.response];
+  return [];
+}
+function responseIdentifier(r){ return r.response_id||r.responseId||r.id||r.submitted_at||JSON.stringify(r); }
+function applyResponses(responses,source,manual){
+  responses.sort((a,b)=>new Date(b.submitted_at||b.created_at||b.createdAt||0)-new Date(a.submitted_at||a.created_at||a.createdAt||0));
+  const latestId=responses.length?responseIdentifier(responses[0]):null;
+  if(latestId&&state.lastLatestId&&latestId!==state.lastLatestId) $("new-response-notice").classList.remove("hidden");
+  state.lastLatestId=latestId; state.responses=responses; state.syncSource=source;
+  renderAdminResponses();
+  const status=$("admin-status-indicator");
+  const synced=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
+  const countTxt=responses.length?" · "+responses.length+" response"+(responses.length===1?"":"s"):"";
+  if(source==="server"){ status.textContent="Shared database · Last refreshed "+synced+countTxt; status.className="statusline good"; }
+  else { status.textContent="Shared cloud database · Last refreshed "+synced+countTxt; status.className="statusline good"; }
+  $("local-mode-banner").classList.add("hidden");
+  if(manual&&responses.length) triggerConfetti();
+}
+async function fetchAdminData(manual){
+  if(manual===undefined) manual=false;
+  const status=$("admin-status-indicator");
+  status.textContent="Refreshing…"; status.className="statusline";
+  $("local-mode-banner").classList.add("hidden");
+  try{
+    try{
+      const data=await apiRequest("/api/admin/responses?invitation_id="+encodeURIComponent(INVITATION_ID));
+      isAdminAuthed=true;
+      applyResponses(normalizeResponseList(data),"server",manual);
+      startPolling(); return;
+    }catch(customErr){ if(!isBackendUnavailable(customErr)) throw customErr; }
+    const list=await cloudListResponses();
+    isAdminAuthed=true;
+    applyResponses(list,"cloud",manual);
+    startPolling();
+  }catch(err){
+    if(err.code==="auth"){
+      status.textContent=err.message; status.className="statusline bad";
+      stopPolling(); isAdminAuthed=false; showAdminLogin(); return;
+    }
+    status.textContent=(err.message||"Could not load responses.")+" Click Refresh Responses to retry.";
+    status.className="statusline bad";
+    $("local-mode-banner").classList.remove("hidden");
+  }
+}
+function startPolling(){
+  if(!isAdminAuthed) return;
+  stopPolling();
+  state.pollTimer=setInterval(()=>{
+    if(!$("experience-admin").classList.contains("hidden")&&!$("admin-dashboard-view").classList.contains("hidden")&&isAdminAuthed){ fetchAdminData(false); }
+  },POLL_INTERVAL_MS);
+}
+function stopPolling(){ if(state.pollTimer) clearInterval(state.pollTimer); state.pollTimer=null; }
+function renderAdminResponses(){
+  const container=$("admin-response-list");
+  container.innerHTML="";
+  $("admin-empty-state").classList.toggle("hidden",state.responses.length!==0);
+  state.responses.forEach((response,index)=>{
+    const data=(response.response_data&&typeof response.response_data==="object")?{...response.response_data,...response}:response;
+    const rf=data.rapid_fire_answers||{};
+    const submitted=data.submitted_at||data.created_at||data.createdAt;
+    const dateText=submitted?new Date(submitted).toLocaleString():"Submission time unavailable";
+    const accepted=data.accepted===true;
+    const isCloud=(data._backend==="pantry"||data._backend==="restful"||data._backend==="crud"||state.syncSource==="cloud");
+    const storageLabel=isCloud?"Shared cloud database":"Shared database";
+    const fields=[["Invitation ID",data.invitation_id||INVITATION_ID],["Respondent",data.respondent_id||"Val"],["Preferred date",data.preferred_date],["Preferred time",data.preferred_time],["Date type",data.date_type],["Location preference",data.preferred_location],["Specific activity",data.activity_preference],["Food restrictions",data.food_restrictions],["Likes",data.likes],["Things to avoid",data.dislikes],["Comfort notes",data.comfort_preferences],["Anything else",data.anything_else],["Rapid fire · flavor",rf.flavor],["Rapid fire · sun time",rf.sun],["Rapid fire · date vibe",rf.vibe],["Rapid fire · food decider",rf.foodDecider],["Excitement",data.excitement_rating!=null?data.excitement_rating+" / 10":"—"],["Storage",storageLabel],["Status",data.status||(accepted?"Accepted":"Considering")]];
+    const card=document.createElement("article");
+    card.className="admin-wrap";
+    const rawId=String(data.response_id||data.responseId||data.id||data._recordId||"");
+    const safeId=rawId.replace(/'/g,"\\'");
+    card.innerHTML='<div class="response-top"><div><strong>'+(accepted?"🎉 Date accepted":"🤔 Asked for time to think")+'</strong><p>Submitted: '+escapeHTML(dateText)+'</p></div><span class="badge">'+escapeHTML(safeText(data.excitement_rating,"—"))+'/10 🔥</span></div>'
+    +'<div class="admin-card"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:13px"><strong style="font-size:13px">'+(index===0?"Latest response":"Response")+'</strong><span class="note">Response ID: '+escapeHTML(safeText(rawId,"not provided"))+'</span></div>'
+    +'<div class="response-grid">'+fields.map(([label,value])=>'<div class="answer '+((label==="Specific activity"||label==="Anything else")?"wide":"")+'"><small>'+escapeHTML(label)+'</small><div>'+escapeHTML(safeText(value,label.indexOf("Rapid fire")!==-1?"Not answered":"Not specified"))+'</div></div>').join("")+'</div>'
+    +'<div class="response-actions" style="margin-top:14px"><button class="btn soft small" onclick="openEditModal(\''+escapeHTML(safeId)+'\')">✏️ Edit response</button><button class="btn danger small" onclick="deleteResponse(\''+escapeHTML(safeId)+'\')">🗑 Delete response</button></div></div>';
+    container.appendChild(card);
+  });
+}
+function updateShareLink(){ $("share-link-input").value=location.origin+location.pathname+"#invite"; }
+async function copyShareLink(){
+  const value=$("share-link-input").value;
+  try{ await navigator.clipboard.writeText(value); }
+  catch(_){ $("share-link-input").select(); document.execCommand("copy"); }
+  $("share-toast").classList.remove("hidden");
+  setTimeout(()=>$("share-toast").classList.add("hidden"),3000);
+}
+async function shareViaMobile(){
+  const url=$("share-link-input").value;
+  if(navigator.share){ try{ await navigator.share({title:"For Val 🌹",text:"Hey Val, I made something for you 💌",url:url}); }catch(_){} }
+  else copyShareLink();
+}
+function openSettingsModal(){
+  $("settings-msg").classList.add("hidden");
+  $("backend-msg").classList.add("hidden");
+  $("password-form").reset();
+  $("backend-url").value=API_BASE;
+  $("settings-modal").classList.remove("hidden");
+}
+function closeSettingsModal(){ $("settings-modal").classList.add("hidden"); }
+$("password-form").addEventListener("submit",async(event)=>{
+  event.preventDefault();
+  const button=$("btn-save-pwd"); const message=$("settings-msg");
+  const current=$("pwd-current").value; const next=$("pwd-new").value;
+  if(next!==$("pwd-confirm").value){ message.textContent="The new passphrases do not match."; message.className="error"; return; }
+  if(next.length<8){ message.textContent="Use at least 8 characters."; message.className="error"; return; }
+  button.disabled=true; button.textContent="Saving…";
+  try{
+    let mode="server";
+    try{
+      await apiRequest("/api/admin/auth/change-password",{method:"POST",body:JSON.stringify({current_password:current,new_password:next,current_passphrase:current,new_passphrase:next})});
+    }catch(err){
+      if(!isBackendUnavailable(err)) throw err;
+      mode="cloud";
+      const ok=await verifyCloudPassphrase(current);
+      if(!ok) throw new ApiError("The current passphrase is incorrect.","auth",401);
+      await cloudPutConfig(await sha256(next));
+    }
+    passphraseChangedKnown=true; refreshDemoPassphraseNote();
+    message.textContent=mode==="server"?"Passphrase updated on the server. It is now required on every device.":"Passphrase updated on the shared database. It is now required on every device.";
+    message.className="feedback";
+    setTimeout(closeSettingsModal,1400);
+  }catch(err){ message.textContent=err.message; message.className="error"; }
+  finally{ button.disabled=false; button.textContent="Save passphrase"; }
+});
+$("backend-form").addEventListener("submit",async(event)=>{
+  event.preventDefault();
+  const message=$("backend-msg");
+  const value=$("backend-url").value.trim().replace(/\/+$/,"");
+  if(value&&!/^https?:\/\//i.test(value)){ message.textContent="Enter a full URL starting with http:// or https:// (or leave it empty)."; message.className="error"; return; }
+  API_BASE=value;
+  message.textContent="Backend saved. Reconnecting…"; message.className="feedback";
+  backendState="unknown";
+  await initAdminView();
+  setTimeout(closeSettingsModal,900);
+});
+async function openEditModal(id){
+  const rec=state.responses.find((item)=>String(item.response_id||item.responseId||item.id||item._recordId||"")===String(id)||String(item._recordId||"")===String(id));
+  if(!rec||!id){ alert("This response could not be found for editing."); return; }
+  editTarget=rec; state.editResponseId=id;
+  const data=(rec.response_data&&typeof rec.response_data==="object")?{...rec.response_data,...rec}:rec;
+  $("edit-date").value=data.preferred_date||"";
+  $("edit-time").value=data.preferred_time||"";
+  $("edit-type").value=data.date_type||"";
+  $("edit-location").value=data.preferred_location||"";
+  $("edit-activity").value=data.activity_preference||"";
+  $("edit-food").value=data.food_restrictions||"";
+  $("edit-likes").value=data.likes||"";
+  $("edit-dislikes").value=data.dislikes||"";
+  $("edit-comfort").value=data.comfort_preferences||"";
+  $("edit-anything").value=data.anything_else||"";
+  $("edit-error").classList.add("hidden");
+  $("edit-modal").classList.remove("hidden");
+}
+function closeEditModal(){ $("edit-modal").classList.add("hidden"); }
+$("edit-form").addEventListener("submit",async(event)=>{
+  event.preventDefault();
+  if(!editTarget) return;
+  const fields={preferred_date:$("edit-date").value,preferred_time:$("edit-time").value,date_type:$("edit-type").value,preferred_location:$("edit-location").value,activity_preference:$("edit-activity").value,food_restrictions:$("edit-food").value,likes:$("edit-likes").value,dislikes:$("edit-dislikes").value,comfort_preferences:$("edit-comfort").value,anything_else:$("edit-anything").value};
+  try{
+    if(editTarget._backend==="pantry"||editTarget._backend==="restful"||editTarget._backend==="crud"){ await cloudUpdateResponse(editTarget,fields); }
+    else{
+      const rid=editTarget.id||editTarget.response_id||editTarget.responseId||state.editResponseId;
+      await apiRequest("/api/admin/responses/"+encodeURIComponent(rid),{method:"PATCH",body:JSON.stringify(fields)});
+    }
+    closeEditModal(); editTarget=null;
+    await fetchAdminData();
+  }catch(err){ $("edit-error").textContent=err.message; $("edit-error").classList.remove("hidden"); }
+});
+async function deleteResponse(id){
+  if(!id){ alert("Missing response identifier."); return; }
+  if(!confirm("Delete this response? This action cannot be undone.")) return;
+  try{
+    const rec=state.responses.find((item)=>String(item.response_id||item.responseId||item.id||item._recordId||"")===String(id)||String(item._recordId||"")===String(id));
+    if(!rec) throw new ApiError("Response not found.","http",404);
+    if(rec._backend==="pantry"||rec._backend==="restful"||rec._backend==="crud"){ await cloudDeleteResponse(rec); }
+    else{
+      const rid=rec.id||rec.response_id||id;
+      await apiRequest("/api/admin/responses/"+encodeURIComponent(rid),{method:"DELETE"});
+    }
+    $("new-response-notice").classList.add("hidden");
+    await fetchAdminData();
+  }catch(err){ alert(err.message||"Could not delete the response."); }
+}
+function switchView(target){
+  const isAdmin=target==="admin";
+  $("experience-public").classList.toggle("hidden",isAdmin);
+  $("experience-admin").classList.toggle("hidden",!isAdmin);
+  $("nav-admin").classList.toggle("active",isAdmin);
+  $("nav-invite").classList.toggle("active",!isAdmin);
+  if(isAdmin) initAdminView(); else stopPolling();
+}
+document.querySelectorAll(".modal").forEach((modal)=>modal.addEventListener("click",(event)=>{ if(event.target===modal) modal.classList.add("hidden"); }));
+document.addEventListener("keydown",(event)=>{ if(event.key==="Escape"){ closeEditModal(); closeSettingsModal(); } });
+function routeFromHash(){ switchView(location.hash.toLowerCase().includes("admin")?"admin":"invite"); }
+window.addEventListener("DOMContentLoaded",()=>{ restoreDraft(); refreshDemoPassphraseNote(); routeFromHash(); });
+window.addEventListener("hashchange",routeFromHash);
+</script>
+</body>
+</html>
